@@ -1,0 +1,12 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "type": "command",
+        "command": "sh -c 'npm run test || exit 2'",
+        "cwd": ".",
+        "timeout": 300
+      }
+    ]
+  }
+}

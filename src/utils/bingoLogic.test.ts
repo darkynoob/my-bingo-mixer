@@ -304,6 +304,42 @@ describe('bingoLogic', () => {
       });
       expect(checkBingo(board)).toBeNull();
     });
+
+    it('should detect Four Corners when the 4 corner indices are marked', () => {
+      const board = generateBoard();
+      [0, 4, 20, 24].forEach((i) => {
+        board[i].isMarked = true;
+      });
+
+      const result = checkBingo(board);
+
+      expect(result).not.toBeNull();
+      expect(result?.type).toBe('four-corners');
+      expect(result?.squares).toEqual([0, 4, 20, 24]);
+    });
+
+    it('should return null for Four Corners when one corner is missing', () => {
+      const board = generateBoard();
+      [0, 4, 20].forEach((i) => {
+        board[i].isMarked = true;
+      });
+
+      expect(checkBingo(board)).toBeNull();
+    });
+
+    it('should still prioritize an existing row win over Four Corners', () => {
+      const board = generateBoard();
+      [0, 1, 2, 3, 4, 20, 24].forEach((i) => {
+        board[i].isMarked = true;
+      });
+
+      const result = checkBingo(board);
+
+      expect(result).not.toBeNull();
+      expect(result?.type).toBe('row');
+      expect(result?.index).toBe(0);
+      expect(result?.squares).toEqual([0, 1, 2, 3, 4]);
+    });
   });
 
   describe('getWinningSquareIds', () => {
