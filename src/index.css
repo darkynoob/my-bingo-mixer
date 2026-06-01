@@ -1,11 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
 @import 'tailwindcss';
 
 @theme {
-  --color-accent: #2563eb;
-  --color-accent-light: #3b82f6;
-  --color-marked: #dcfce7;
-  --color-marked-border: #22c55e;
-  --color-bingo: #fbbf24;
+  --color-accent: #ff4fbf;
+  --color-accent-light: #ff7fd1;
+  --color-marked: #3d257a;
+  --color-marked-border: #ffcf5f;
+  --color-bingo: #7af7ff;
+  --font-display: 'Fredoka', 'Trebuchet MS', sans-serif;
+}
+
+:root {
+  --bubble-shadow: 0 24px 70px rgba(16, 16, 34, 0.38);
+  --bubble-surface: rgba(17, 18, 43, 0.78);
+  --bubble-outline: rgba(255, 255, 255, 0.14);
+  --bubble-glow: 0 0 0 1px rgba(255, 255, 255, 0.12), 0 0 34px rgba(255, 79, 191, 0.24);
 }
 
 html,
@@ -16,6 +25,85 @@ body,
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-display);
   -webkit-tap-highlight-color: transparent;
+  color: #fff9ff;
+  background:
+    radial-gradient(circle at top left, rgba(255, 127, 209, 0.35), transparent 28%),
+    radial-gradient(circle at top right, rgba(122, 247, 255, 0.2), transparent 24%),
+    radial-gradient(circle at bottom center, rgba(255, 207, 95, 0.18), transparent 30%),
+    linear-gradient(180deg, #140f2e 0%, #1a123d 48%, #090816 100%);
+}
+
+#root {
+  min-height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@keyframes bubble-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes bubble-pop {
+  0% {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bubble-shimmer {
+  0%,
+  100% {
+    transform: translateX(-12%);
+  }
+  50% {
+    transform: translateX(12%);
+  }
+}
+
+.bubble-panel {
+  background: linear-gradient(180deg, rgba(32, 21, 61, 0.92), rgba(15, 14, 34, 0.86));
+  border: 1px solid var(--bubble-outline);
+  box-shadow: var(--bubble-shadow), var(--bubble-glow);
+  backdrop-filter: blur(18px);
+}
+
+.bubble-pill {
+  border-radius: 9999px;
+}
+
+.bubble-texture {
+  position: relative;
+  overflow: hidden;
+}
+
+.bubble-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.18), transparent 32%, rgba(255, 255, 255, 0.1) 56%, transparent 76%);
+  opacity: 0.75;
+  pointer-events: none;
+  animation: bubble-shimmer 12s ease-in-out infinite;
+}
+
+.bubble-float {
+  animation: bubble-float 4.5s ease-in-out infinite;
+}
+
+.bubble-pop {
+  animation: bubble-pop 0.5s ease-out;
 }

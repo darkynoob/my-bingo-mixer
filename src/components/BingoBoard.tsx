@@ -9,7 +9,7 @@ interface BingoBoardProps {
 
 export function BingoBoard({ board, winningSquareIds, onSquareClick }: BingoBoardProps) {
   return (
-    <div className="grid grid-cols-5 gap-1 w-full max-w-md mx-auto aspect-square">
+    <div className="bubble-panel bubble-texture grid aspect-square w-full max-w-md grid-cols-5 gap-2 rounded-[2rem] p-3 sm:gap-3 sm:p-4">
       {board.map((square) => (
         <BingoSquare
           key={square.id}
